@@ -33,6 +33,7 @@ Route::get('/notifs', function () {
     return view('julsfolder.notifications');
 });
 
+Route::view('video', 'user.video');
 
 Volt::route('/jobpost', 'guest.job-post');
 Volt::route('/application/{job:title}', 'guest.app-form');

@@ -65,7 +65,7 @@
   @apply self-end p-1 text-gray-600 font-bold w-fit h-fit;
 }
 .headsearch{
-  /* background-image: url(/public/images/bg.png); */
+  background-image: url(/public/images/bg.png);
   background: rgb(245,249,249);
   background: linear-gradient(0deg, rgba(245,249,249,1) 26%, rgba(245,180,81,1) 100%);
 }

@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" type="image/png" href="/images/companyicon.png">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <wireui:scripts />
     @vite(['resources/js/app.js', 'resources/css/app.css'])
@@ -48,6 +49,7 @@
 
 
     <!--SIDEBAR-->
+    @persist('sidebar')
     <div class="transition-all duration-500 relative lg:flex md:flex sm:flex  md:w-[23%] sm:w-[25%] hidden" id="sidebar">
         <aside class="absolute h-screen" >
             <div class="flex flex-col bg-gradient-to-b from-[#a68c00] to-[#896800] lg:w-[95%] md:w-[90%] sg:w-[85%] tb:w-[90%] xl:w-[120%] 2xl:w-[120%] h-screen overflow-y-auto p-2 max-w-[120%] shadow-right-light cursor-pointer text-white scrollbar-hidden">
@@ -68,27 +70,28 @@
                                 x-transition:leave-start="opacity-100 translate-y-0"
                                 x-transition:leave-end="opacity-0 translate-y-2">
 
-                            <li class="side"><a wire:navigate.hover href="{{ url('/job-create') }}">Job Creation</a></li>
-                            <li class="side"><a wire:navigate.hover href="{{ url('/jobpost') }}">Posting</a></li>
-                            <li class="side"><a wire:navigate.hover href="{{ url('/application') }}">Application Form</a></li>
-                            <li class="side"><a wire:navigate.hover href="{{ url('/exam') }}">Initial Questions</a></li>
+                            <li class="side"><a wire:navigate.hover href="/job-create">Job Creation</a></li>
+                            <li class="side"><a wire:navigate.hover href="/jobpost">Posting</a></li>
+                            <li class="side"><a wire:navigate.hover href="/application">Application Form</a></li>
+                            <li class="side"><a wire:navigate.hover href="/exam">Initial Questions</a></li>
 
                         </div>
                     </div>
                     <label for="EMPLOYEE ENGANEMENT" class="titlesidebar">Applicant Tracking</label>
-                    <li class="side"><a wire:navigate.hover href="{{ url('/applicant-list') }}">Applicants</a></li>
-                    <li class="side"><a wire:navigate.hover href="{{ url('/candidates') }}">Candidates</a></li>
+                    <li class="side"><a wire:navigate.hover href="/applicant-list">Applicants</a></li>
+                    <li class="side"><a wire:navigate.hover href="/candidates">Candidates</a></li>
 
                     <label for="EMPLOYEE ENGANEMENT" class="titlesidebar">Onboarding</label>
-                    <li class="side"><a wire:navigate.hover href="{{ url('/application') }}">Employee List</a></li>
-                    <li class="side"><a wire:navigate.hover href="{{ url('/jobscript') }}">Task List</a></li>
-                    <li class="side"><a wire:navigate.hover href="{{ url('/onboard') }}">Task Creation</a></li>
-                    <li class="side"><a wire:navigate.hover href="{{ url('/initial') }}">Document Management</a></li>
+                    <li class="side"><a wire:navigate.hover href="/application">Employee List</a></li>
+                    <li class="side"><a wire:navigate.hover href="/jobscript">Task List</a></li>
+                    <li class="side"><a wire:navigate.hover href="/onboard">Task Creation</a></li>
+                    <li class="side"><a wire:navigate.hover href="/initial">Document Management</a></li>
                     <label for="EMPLOYEE ENGANEMENT" class="titlesidebar">Learning Managment</label>
                 </ul>
             </div>
         </aside>
     </div>
+    @endpersist
 
     <div class="flex h-screen w-full scrollbar-thin"> <!--CONTENT CONTAINER-->
         <div id="content" class=" overflow-auto transition-all duration-500 ml-[20%] h-full w-full scrollbar-thin">

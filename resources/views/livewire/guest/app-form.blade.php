@@ -67,8 +67,7 @@ new #[layout('components.usercomponent.appform-layout')]
                     <div class="space-y-4 md:flex rightform sp md:flex-col"><!-- FROM NAME TO CONTACTS -->
                         <div>
                             <label for="first_name">First Name</label>
-                            <input wire:model="s" type="text" value="tae"  class="inputs" placeholder="First Name">
-                            <input wire:model="fir" type="text" value="tae">
+                            <input wire:model="first_name" type="text" value="tae"  class="inputs" placeholder="First Name">
                             <x-input-error name="first_name" />
                         </div>
                         <div>

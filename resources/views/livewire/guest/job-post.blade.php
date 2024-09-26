@@ -65,7 +65,7 @@ class extends Component {
 
 <div class="selection:bg-yellow-300 selection:text-yellow-900 flex items-center  bg-white justify-center w-full h-screen text-black"
     x-data="{ details: open }">
-    <div class="lg:w-[90%] h-full flex overflow-hidden md:w-[85%] sm:w[80%] w-[90%]">
+    <div class="lg:w-[90%] h-full flex overflow-hidden md:w-[85%] sm:w[80%] w-[90%]" x-data="{appModal: false}">
         <!-- Left Column -->
         <div class="flex-1 h-full px-5 space-y-5 overflow-auto scrollbar-custom overflow-y-scroll">
             <div class="bg-white sticky top-0 z-10 space-y-3 pt-3 ">
@@ -109,13 +109,43 @@ class extends Component {
                 @endif
             @endif
         </div>
+        
+        @if($test)
+              {{-- mobile --}}
+              <div class="lg:hidden flex flex-col h-full top-32 fixed inset-0 card items-center justify-center z-20" x-show="details"  x-transition x-cloak>
+        <x-preloader />
+
+                  <div @click.away="details = false" class="flex flex-col justify-center items-center px-2">
+                      <div class="absolute top-0 right-0">
+                          <x-mini-button label="X" icon="x-mark" @click="details = false" negative flat
+                              interaction="negative" />
+                      </div>
+                      <p class="font-bold text-2xl" x-text="$wire.title"></p>
+                      <ul class="list-disc list-inside text-gray-700">
+                          <li>{{ $test->location }}</li>
+                        <li>{{ $test->schedule }}</li>
+                        <li>{{ $test->salary }}</li>
+                      </ul>
+                      <h1 class="font-bold text-xl">Job Description</h1>
+                      <p class="flex break-all text-gray-700"> {{ $test->description }}</p>
+                      <h1 class="font-bold text-xl">Job Requirements</h1>
+                      <div class="flex flex-col">
+                      @foreach (explode(',', $test->requirements) as $requirement)
+                          <li> {{ $requirement }}</li>
+                      @endforeach
+                      </div>
+                      <x-button @click="appModal = true; setTimeout(() => appModal = false, 2000)" wire:navigate.hover class="mt-2 font-bold"  yellow label="Apply Now" />
+                  </div>
+              </div>
+              {{-- mobile --}}
+          @endif
 
         <!-- Right Column for Sorting Component (Responsive) -->
         <div class="space-y-3 flex-1 hidden h-full justify-center p-4 lg:basis-52 md:basis lg:flex md:flex sm:hidden relative">
             {{-- <x-usercomponent.jobsorting /> --}}
-            @if (isset($test))
 
-                <x-preloader />
+            <x-preloader/>
+            @if (isset($test))
 
                 <div on="updated" class="flex flex-col  cards space-y-2 relative" x-show="details" lazy x-transition x-cloak>
                     <div class="absolute top-0 right-0">
@@ -124,32 +154,43 @@ class extends Component {
                     </div>
                     <p class="font-bold text-2xl" x-text="$wire.title"></p>
                     <ul class="list-disc list-inside text-gray-700">
-                        <li x-text="$wire.test"></li>
-                        <li x-text="$wire.test.salary"></li>
-                        <li x-text="$wire.title"></li>
+                        <li>{{ $test->location }}</li>
+                        <li>{{ $test->schedule }}</li>
+                        <li>{{ $test->salary }}</li>
                     </ul>
                     <h1 class="font-bold text-xl">Job Description</h1>
                     <p class="flex break-all text-gray-700"> {{ $test->description }}</p>
                     <h1 class="font-bold text-xl">Job Requirements</h1>
-                    <p class="flex break-all text-gray-700"> {{ $test->requirements }}</p>
-                    <x-button wire:navigate.hover class="w-[20%] h-[50%] font-bold" href="/application/{{ $test->title }}" yellow label="Apply Now" />
+                    <div class="flex flex-col">
+                      @foreach (explode(',', $test->requirements) as $requirement)
+                        <li> {{ $requirement }}</li>
+                      @endforeach
+                    </div>
+                    <x-button @click="appModal = true; setTimeout(() => appModal = false, 2000)" wire:navigate.hover class="w-[20%] h-[50%] font-bold"  yellow label="Apply Now" />
                 </div>
             @else
                 <div class="flex flex-col  cards space-y-2 relative" x-show="details" lazy x-transition x-cloak>
-                    
-                    <p class="font-bold text-2xl">{{ $firstJob->title }}</p>
+
+                    <p class="font-bold text-2xl">{{ $firstJob->title}}</p>
                     <ul class="list-disc list-inside text-gray-700">
-                        <li>{{ $firstJob->salary }}</li>
-                        <li>{{ $firstJob->description }}</li>
+                        <li>{{ $firstJob->location }}</li>
                         <li>{{ $firstJob->schedule }}</li>
+                        <li>{{ $firstJob->salary }}</li>
                     </ul>
                     <h1 class="font-bold text-xl">Job Description</h1>
-                    <p class="flex break-all text-gray-700">testststsst</p>
+                    <p class="flex break-all text-gray-700">{{ $firstJob->description }}</p>
                     <h1 class="font-bold text-xl">Job Requirements</h1>
-                    <p class="flex break-all text-gray-700">testststststtsts</p>
-                    <x-button class="w-[20%] h-[50%] font-bold"  yellow label="Apply Now" />
+                    <div class="flex flex-col">
+                      @foreach (explode(',', $firstJob->requirements) as $requirement)
+                      	<li>{{ $requirement }}</li>
+                      @endforeach
+                    </div>
+                    <x-button @click="appModal = true; setTimeout(() => appModal = false, 2000)" class="w-[20%] h-[50%] font-bold"  yellow label="Apply Now" />
                 </div>
             @endif
+        </div>
+      	<div x-show="appModal"  x-cloak class="absolute inset-0 z-10 flex items-center justify-center">
+            <img src="{{ asset('images/Valak.webp') }}" alt="" width="400px" @click.away="appModal = false">
         </div>
     </div>
 </div>
